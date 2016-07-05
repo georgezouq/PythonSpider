@@ -1,4 +1,6 @@
 # encoding=utf-8
+
+"""
 import re
 import datetime
 from scrapy.spiders import CrawlSpider
@@ -12,7 +14,7 @@ class Spider(CrawlSpider):
     host = "http://weibo.cn"
     start_urls = [];
     for id in wbUserID:
-        start_urls.append("http://weibo.cn/%s/profile?filter=1&page=1" % id)
+        start_urls.append(id)
 
     scrawl_ID = set(start_urls)  # 记录待爬的微博ID
     finish_ID = set()  # 记录已爬的微博ID
@@ -31,18 +33,18 @@ class Spider(CrawlSpider):
             fansItems["_id"] = ID
             fansItems["fans"] = fans
 
-            #url_follows = "http://weibo.cn/%s/follow" % ID
-            #url_fans = "http://weibo.cn/%s/fans" % ID
+            url_follows = "http://weibo.cn/%s/follow" % ID
+            url_fans = "http://weibo.cn/%s/fans" % ID
             url_tweets = "http://weibo.cn/%s/profile?filter=1&page=1" % ID
-            #url_information0 = "http://weibo.cn/attgroup/opening?uid=%s" % ID
+            url_information0 = "http://weibo.cn/attgroup/opening?uid=%s" % ID
             #yield Request(url=url_follows, meta={"item": followsItems, "result": follows},
             #             callback=self.parse3)  # 去爬关注人
             #yield Request(url=url_fans, meta={"item": fansItems, "result": fans}, callback=self.parse3)  # 去爬粉丝
             #yield Request(url=url_information0, meta={"ID": ID}, callback=self.parse0)  # 去爬个人信息
-            yield Request(url=url_tweets, meta={"ID": ID}, callback=self.parse0)  # 去爬微博
+            yield Request(url=url_tweets, meta={"ID": ID}, callback=self.parse)  # 去爬微博
 
 
-    def parse0(self, response):
+    def parse(self, response):
         "" " 抓取微博数据 "" "
         selector = Selector(response)
         tweets = selector.xpath('body/div[@class="c" and @id]')
@@ -82,10 +84,9 @@ class Spider(CrawlSpider):
             yield Request(url=self.host + url_next[0], meta={"ID": response.meta["ID"]}, callback=self.parse2)
 
 
-"""
     def parse0(self, response):
         "" " 抓取个人信息1 " ""
-        informationItems = InformationItem()
+        userInfoItem = UserInfoItem()
         selector = Selector(response)
         text0 = selector.xpath('body/div[@class="u"]/div[@class="tip2"]').extract_first()
         if text0:
@@ -93,14 +94,14 @@ class Spider(CrawlSpider):
             num_follows = re.findall(u'\u5173\u6ce8\[(\d+)\]', text0)  # 关注数
             num_fans = re.findall(u'\u7c89\u4e1d\[(\d+)\]', text0)  # 粉丝数
             if num_tweets:
-                informationItems["Num_Tweets"] = int(num_tweets[0])
+                userInfoItem["Num_Tweets"] = int(num_tweets[0])
             if num_follows:
-                informationItems["Num_Follows"] = int(num_follows[0])
+                userInfoItem["Num_Follows"] = int(num_follows[0])
             if num_fans:
-                informationItems["Num_Fans"] = int(num_fans[0])
-            informationItems["_id"] = response.meta["ID"]
+                userInfoItem["Num_Fans"] = int(num_fans[0])
+                userInfoItem["_id"] = response.meta["ID"]
             url_information1 = "http://weibo.cn/%s/info" % response.meta["ID"]
-            yield Request(url=url_information1, meta={"item": informationItems}, callback=self.parse1)
+            yield Request(url=url_information1, meta={"item": userInfoItem}, callback=self.parse1)
 
 
 
@@ -169,4 +170,5 @@ class Spider(CrawlSpider):
                           callback=self.parse3)
         else:  # 如果没有下一页即获取完毕
             yield items
+
 """

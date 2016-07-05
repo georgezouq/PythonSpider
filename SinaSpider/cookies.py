@@ -10,11 +10,11 @@ import os
 或者你也可以把时间间隔调大点。
 """
 myWeiBo = [
-    {'no': 'songqiao901427@163.com', 'psw': 'tttt5555'},
-    #{'no': 'tunyan56482947@163.com', 'psw': 'tttt5555'},
-    #{'no': 'anlu97182@163.com', 'psw': 'tttt5555'},
-    #{'no': 'jingwen251169@163.com', 'psw': 'tttt5555'},
-    #{'no': 'puwu164667@163.com', 'psw': 'tttt5555'}
+    #{'no': 'songqiao901427@163.com', 'psw': 'tttt5555'},
+    {'no': 'tunyan56482947@163.com', 'psw': 'tttt5555'},
+    {'no': 'anlu97182@163.com', 'psw': 'tttt5555'},
+    {'no': 'jingwen251169@163.com', 'psw': 'tttt5555'},
+    {'no': 'puwu164667@163.com', 'psw': 'tttt5555'}
 ]
 
 # http://stackoverflow.com/questions/13030095/how-to-save-requests-python-cookies-to-a-file

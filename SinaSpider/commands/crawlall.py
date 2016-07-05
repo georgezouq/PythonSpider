@@ -25,7 +25,9 @@ class Command(ScrapyCommand):
         try:
             opts.spargs = arglist_to_dict(opts.spargs)
         except ValueError:
-            raise UsageError("Invalid -a value, use -a NAME=VALUE", print_help=False)
+            print("Invalid -a value, use -a NAME=VALUE")
+
+            # raise UsageError("Invalid -a value, use -a NAME=VALUE", print_help=False)
 
     def run(self, args, opts):
         # settings = get_project_settings()
