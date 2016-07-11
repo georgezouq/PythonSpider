@@ -31,16 +31,13 @@ ITEM_PIPELINES = {
 
 LOG_LEVEL = 'DEBUG'
 
-
-
 SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
-DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+DUPEFILTER_CLASS = 'scrapy_redis.dupefilter.RFPDupeFilter'
 SCHEDULER_PERSIST = True
-#SCHEDULER_QUEUE_CLASS = 'scrapy_redis.queue.SpiderPriorityQueue'
-
-REDIS_URL = "redis://60.205.95.103:6379"
-#REDIS_HOST = 'localhost' # '60.205.95.103'
-#REDIS_PORT = 6379
+SCHEDULER_QUEUE_CLASS = 'scrapy_redis.queue.SpiderPriorityQueue'
+REDIE_URL = None
+REDIS_HOST = '60.205.95.103'
+REDIS_PORT = 6379
 
 DOWNLOAD_DELAY = 1  # 间隔时间
 COMMANDS_MODULE = 'SinaSpider.commands'

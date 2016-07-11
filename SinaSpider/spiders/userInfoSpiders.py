@@ -7,13 +7,13 @@ from scrapy_redis.spiders import RedisSpider
 from SinaSpider.initUserId import wbUserID
 from scrapy.selector import Selector
 from scrapy.http import Request
-from SinaSpider.items import UserInfoItem
+from SinaSpider.items import UserInfoItem,FollowsItem,FansItem
 
 
 class Spider(RedisSpider):
-    name = "informationSpider"
+    name = "userInfoSpider"
     host = "http://weibo.cn"
-    redis_key = "informationSpider:start_urls"
+    redis_key = "userinfoSpider:start_urls"
     start_urls = []
     for ID in wbUserID:
         url = url_information1 = "http://weibo.cn/%s/info" % ID
@@ -36,6 +36,8 @@ class Spider(RedisSpider):
         sexorientation = re.findall(u'\u6027\u53d6\u5411[:|\uff1a](.*?);', text1)  # 性取向
         marriage = re.findall(u'\u611f\u60c5\u72b6\u51b5[:|\uff1a](.*?);', text1)  # 婚姻状况
         url = re.findall(u'\u4e92\u8054\u7f51[:|\uff1a](.*?);', text1)  # 首页链接
+
+        print("-----nickname:%s",response.url)
 
         informationItems["_id"] = ID
         if nickname:
@@ -87,6 +89,8 @@ class Spider(RedisSpider):
         for ID in idFollows:
             url = "http://weibo.cn/%s/profile?filter=1&page=1" % ID
             yield Request(url=url, callback=self.parse)
+
+
 
     def getNextID(self, url, cookies):
         """ 打开url爬取里面的个人ID """
