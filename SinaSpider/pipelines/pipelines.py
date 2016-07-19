@@ -7,7 +7,7 @@ class MongoDBPipleline(object):
     def __init__(self):
         clinet = pymongo.MongoClient("localhost",27017)
 
-        db = clinet["Sina3"]
+        db = clinet["FinanceWeibo"]
         self.UserInfoItem = db["UserInfoItem"]
         self.Tweets = db["Tweets"]
         self.Follows = db["Follows"]

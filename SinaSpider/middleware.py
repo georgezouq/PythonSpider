@@ -1,9 +1,11 @@
 # encoding=utf-8
-import random
 import base64
-from cookies import cookies
-from user_agents import agents
+import random
+
+from SinaSpider.cookies.cookies import cookies
 from proxy_ip import PROXY
+from user_agents import agents
+
 
 class UserAgentMiddleware(object):
     """ 换User-Agent """
