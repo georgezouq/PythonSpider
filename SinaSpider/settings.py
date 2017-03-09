@@ -36,7 +36,8 @@ DUPEFILTER_CLASS = 'scrapy_redis.dupefilter.RFPDupeFilter'
 SCHEDULER_PERSIST = True
 SCHEDULER_QUEUE_CLASS = 'scrapy_redis.queue.SpiderPriorityQueue'
 REDIE_URL = None
-REDIS_HOST = '60.205.95.103'
+# REDIS_HOST = '60.205.95.103'
+REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 
 DOWNLOAD_DELAY = 1  # 间隔时间
